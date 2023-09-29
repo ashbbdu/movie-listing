@@ -1,0 +1,8 @@
+.card-img-top {
+  height: 400px;
+}
+.movie-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
