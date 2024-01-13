@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="main"></div>
+<form onsubmit="handleSubmit(event)">
+    <input type="text" name="firstName" id="firstName">
+    <input type="text" name="lastName" id="lastName">
+    <!-- <button onclick="handleSubmit()" type="submit">Submit</button> -->
+    <!-- <span id="button">Click Me</span> -->
+<button type="submit">Submit</button>
+    <h1 id="data"></h1>
+</form>
+<form>
+    <input type="text" name="firstValue" id="firstValue">
+    <input type="text" name="secondValue" id="secondValue">
+    <button onclick="calculateSum(event)" type="submit">Calculate</button>
+</form>
+<h1>Total sum is : <span id="sum"></span></h1>
+<script src="script.js"></script>
+</body>
+</html>
