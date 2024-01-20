@@ -1,30 +1,27 @@
-
-
 // import { useState } from 'react'
 // import Header from './components/Header'
 // import HeaderWithBtn from './components/HeaderWithBtn'
 // import Todo from './components/Todo'
 
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 // function App() {
 
 //   const [todos , setTodos] = useState([
-//     { 
+//     {
 //         id : 1,
 //         title : "First",
-//         description : "First todo Descritpion" 
-//     }, { 
+//         description : "First todo Descritpion"
+//     }, {
 //       id : 2,
 //       title : "First",
-//       description : "First todo Descritpion" 
+//       description : "First todo Descritpion"
 //   },
-//   { 
+//   {
 //     id : 3,
 //     title : "First",
-//     description : "First todo Descritpion" 
+//     description : "First todo Descritpion"
 // }
-
 
 // ])
 
@@ -40,11 +37,11 @@ import { useEffect, useMemo, useState } from "react";
 
 //   return (
 //    <div>
-   
+
 //      <HeaderWithBtn />
 //     <Header title="My name is Kirat" />
 //     <Header title="My name is Kirat 2" />
-    
+
 //     {
 //      todos.map((todo) => {
 //         return (
@@ -60,8 +57,6 @@ import { useEffect, useMemo, useState } from "react";
 // }
 
 // export default App
-
-
 
 // Wrapper components
 
@@ -90,7 +85,7 @@ import { useEffect, useMemo, useState } from "react";
 //     <div>
 //       {/* <CardWrapper innerComponent={<TextComponent />} />
 //       <CardWrapper innerComponent={<TextComponent2 />} /> */}
-//       {/* How to actually do wrapper thing  // example auth layout ki tarah */} 
+//       {/* How to actually do wrapper thing  // example auth layout ki tarah */}
 //       <CardWrapper>
 //         Hi there
 //       </CardWrapper>
@@ -147,39 +142,67 @@ import { useEffect, useMemo, useState } from "react";
 
 // export default App
 
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import TestPrivate from "./pages/TestPrivate";
+import PrivateRoute from "./PrivateRoute";
+// import Home from "./pages/Home";
+// import Dashboard from "./pages/Dashboard";
+// import About from "./pages/About";
 
 const App = () => {
-  const [number , setNumber] = useState(0)
-  // const [total , setTotal] = useState(0)
-  const [count , setCount] = useState(0)
+  // const [number , setNumber] = useState(0)
+  // // const [total , setTotal] = useState(0)
+  // const [count , setCount] = useState(0)
 
-// useMemo is one approach and other approach is using useEffect
-  let totalNum = useMemo(() => {
-    let finalCount = 0;
-    for(let i = 1 ; i <= number ; i++) {
-      finalCount = finalCount + i;
-      console.log("ash");
-    }
-    return finalCount;
-  },[number])
+  const Dashboard = lazy(() => import("./pages/Dashboard"));
+  const About = lazy(() => import("./pages/About"));
+  const Home = lazy(() => import("./pages/Home"));
 
-  
-
+  // useMemo is one approach and other approach is using useEffect
+  // let totalNum = useMemo(() => {
+  //   let finalCount = 0;
+  //   for(let i = 1 ; i <= number ; i++) {
+  //     finalCount = finalCount + i;
+  //     console.log("ash");
+  //   }
+  //   return finalCount;
+  // },[number])
 
   // useEffect(() => {
   //   sum()
   // },[number])
   return (
+    // <div>
+    //     <input type="number"  onChange={(e) => setNumber(e.target.value) }  /><br/>
+    //   <div>Sum is {totalNum}</div>
+
+    //   <button onClick={() => {
+    //     setCount(prev => prev + 1)
+    //   }}>Counter {count}</button>
+    // </div>
+    // <Suspense /> is for asynchronous component fetching , asynchronous data fetching
     <div>
-        <input type="number"  onChange={(e) => setNumber(e.target.value) }  /><br/>
-      <div>Sum is {totalNum}</div>
-    
-      <button onClick={() => {
-        setCount(prev => prev + 1)
-      }}>Counter {count}</button>
+      <Header title={"Header"}>
+        <div>ash</div>
+      </Header>
+      <Suspense fallback={"...Loading"}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/about" element={<About />} />
+          <Route
+            path="/test"
+            element={
+              <PrivateRoute>
+                <TestPrivate />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Suspense>
     </div>
-  )
-}
+  );
+};
 
-export default App
-
+export default App;
